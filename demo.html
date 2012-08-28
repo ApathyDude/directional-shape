@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript" src="DirectionalShape.js"></script>
+</head>
+<body>
+
+<canvas id="myCanvas" style="border:1px solid #000000;">Your browser does not support the HTML5 canvas tag.</canvas>
+
+
+<script type="text/javascript">
+var c=document.getElementById('myCanvas');
+var ctx=c.getContext('2d');
+ctx.canvas.width  = 200;
+ctx.canvas.height = 200;
+var Shape = DShape.Shape;
+var Point = DShape.Point;
+
+
+var entities  = [
+new Shape([new DShape.Point(.2,10), new DShape.Point(1,8), new DShape.Point(-.2,10)], "#FF0000", 50, 100, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#00FF00", 100, 100, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#0000FF", 150, 100, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#00FFFF", 100, 50, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#FF00FF", 100, 150, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#AAAAAA", 50, 50, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#666666", 50, 150, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#000000", 150, 50, 0),
+new Shape([new Point(.2,10), new Point(1,8), new Point(-.2,10)], "#888888", 150, 150, 0)
+];
+
+for(var i = 0; i < entities.length; i++)
+    entities[i].closeStroke(ctx);
+
+
+c.onmousemove = function(e) {
+	var x, y;
+	if(e.offsetX) {x = e.offsetX; y = e.offsetY;}
+	else if(e.layerX) {x = e.layerX; y = e.layerY;}
+
+	ctx.clearRect(0,0,200,200);
+	for(var i = 0; i < entities.length; i++) {
+		entities[i].setDirection(DShape.calcAngle(entities[i].getX(), x, entities[i].getY(), y));
+		entities[i].closeStroke(ctx);
+	}
+}
+
+</script>
+
+</body>
+</html>
